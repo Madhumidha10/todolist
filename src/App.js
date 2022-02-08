@@ -1,25 +1,49 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState} from 'react';
 
-function App() {
+
+export default function App() {
+  const list=[{item:"Task1"},
+  {item:"Task2"},
+ ];
+ 
+
+ const [taskList, setTaskList] = useState(list);
+
+ const removeListItem=(index)=>
+ {
+  
+  const copyTaskList=[...taskList];
+  copyTaskList.splice(index,1)
+  setTaskList(copyTaskList);
+ }
+ 
+ const [newtask,setNewTask]=useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>ToDoList</h1>
+   <div className='form'>
+  <input type="text" placeholder='New Task...' value={newtask} onChange={(e)=>setNewTask(e.target.value)} /> 
+  <button onClick={()=>{
+    const newTaskList={item:newtask};
+  
+    setTaskList([...taskList,newTaskList]);setNewTask("");}}>Add New Task</button>
+  
+    
     </div>
-  );
+    {taskList.map(({item},index)=><ToDoList item={item}  key={index} onDelete={()=>removeListItem(index)} />)}
+    </div>
+  ); 
 }
-
-export default App;
+function ToDoList({item,index,onDelete})
+{
+ 
+  return <div className='todo'>
+    <div key={index}></div>
+    <span className="todo-text">
+        {item} 
+        <button onClick={()=>onDelete(index)}>X</button>
+    </span>
+  </div>
+}
