@@ -10,7 +10,7 @@ export default function App() {
  
 
  const [taskList, setTaskList] = useState(list);
-
+ const [newtask,setNewTask]=useState("");
  const removeListItem=(index)=>
  {
   
@@ -19,7 +19,7 @@ export default function App() {
   setTaskList(copyTaskList);
  }
  
- const [newtask,setNewTask]=useState("");
+ 
   return (
     <div className="App">
      <h1>ToDoList</h1>
